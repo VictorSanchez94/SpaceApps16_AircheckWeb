@@ -1,0 +1,11 @@
+<section ng-include="'app/main/header.html'" id="header" class="{{mainVM.config.settings.navbarHeaderColor}}"></section>
+<div id="controls">
+  <aside ng-include="'app/main/nav.html'" id="sidebar" class="{{mainVM.config.settings.sidebarColor}}" ng-class="{'aside-fixed':mainVM.config.settings.asideFixed}"></aside>
+  <aside ng-include="'app/main/rightbar.html'" id="rightbar"></aside>
+</div>
+<div class="view-container">
+  <section id="content" autoscroll="false">
+    <section ng-include="'app/main/notifications/notifications.html'"></section>
+    <div ui-view></div>
+  </section>
+</div>

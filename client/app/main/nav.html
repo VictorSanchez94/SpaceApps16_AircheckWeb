@@ -1,0 +1,47 @@
+<div id="sidebar-wrap" ng-controller="NavCtrl as navVM">
+  <uib-accordion close-others="navVM.oneAtATime" slimscroll="{height: '100%'}">
+    <uib-accordion-group is-open="navVM.status.isFirstOpen">
+      <uib-accordion-heading>
+        Navigation <i class="pull-right fa" ng-class="{'fa-angle-up': navVM.status.isFirstOpen, 'fa-angle-down': !navVM.status.isFirstOpen}"></i>
+      </uib-accordion-heading>
+      <ul id="navigation" nav-collapse ripple>
+        <!--<li ui-sref-active="active">
+          <a ui-sref="app.dashboard"><fa name="dashboard"></fa>
+            <span>{{ 'Menu.DASHBOARD' | translate }}</span>
+          </a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="app.contactList"><fa name="book"></fa>
+            <span>{{ 'Menu.USER_CONTACTS' | translate }}</span>
+          </a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="app.watchContacts"><fa name="book"></fa>
+            <span>{{ 'Menu.WATCH_CONTACTS' | translate }}</span>
+          </a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="app.geofences"><fa name="bullseye"></fa>
+            <span>{{ 'Menu.GEOFENCES' | translate }}</span>
+          </a>
+        </li>-->
+
+        <li ui-sref-active="active">
+          <a ui-sref="app.map"><fa name="map-marker"></fa>
+            <span>{{ 'Menu.MAP' | translate }}</span>
+          </a>
+        </li>
+
+        <!--<li ui-sref-active="active" style="position: absolute; bottom: 10px;">
+          <a ui-sref="app.help"><fa name="info-circle"></fa>
+            <span>{{ 'Menu.HELP' | translate }} </span>
+          </a>
+        </li>-->
+      </ul>
+    </uib-accordion-group>
+
+  </uib-accordion>
+</div>

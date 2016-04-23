@@ -1,0 +1,8 @@
+<div ng-controller="NotificationsCtrl as notificationsVM">
+  <uib-alert ng-repeat="notification in notificationsVM.notifications"
+             type="{{notification.type}}"
+             close="notificationsVM.closeNotification($index)"
+             class="{{notification.closeable ? 'closeable' : 'notcloseable'}}">
+    <i class="fa {{notification.icon}}"></i> <span ng-bind-html="notification.message"></span>
+  </uib-alert>
+</div>

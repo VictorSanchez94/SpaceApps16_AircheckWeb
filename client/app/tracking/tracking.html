@@ -1,0 +1,71 @@
+<div class="page">
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+    <!-- row -->
+    <!--<div class="row page-core">-->
+      <!-- col -->
+      <!--<div class="col-md-12 page-core">-->
+
+      <div class="col-md-12">
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>{{ 'Map.HEADER' | translate }}</strong></h1>
+            <ul class="controls">
+              <!-- Search -->
+              <div class="search inline-block" style="align: right;" id="main-search">
+                <input type="text" name="city" class="form-control underline-input" placeholder="{{ 'Map.CITY_PLACEHOLDER' | translate }}" ng-model="trackingVM.city.name" ng-keypress="trackingVM.searchCity($event)">
+              </div>
+              <!-- Search end -->
+            </ul>
+            <ul class="controls">
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <!--<li>
+                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                      <fa name="refresh"></fa> {{ 'Common.REFRESH' | translate }}
+                    </a>
+                  </li>-->
+                  <li>
+                    <a href tile-control-fullscreen ng-click="isFullscreen = !isFullscreen">
+                      <fa name="expand"></fa> {{ 'Common.FULL_SCREEN' | translate }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-lightbox>
+                      <fa name="magnet"></fa> {{ 'Common.LIGHTBOX' | translate }}
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+
+          <!-- map -->
+          <div class="tile-body">
+            <leaflet id="trackingMap" lf-center="trackingVM.center" markers="trackingVM.markers" layers="layers" controls="controls" height="500px" width="100%">
+            </leaflet>
+          </div>
+          <!-- /map -->
+
+        </section>
+        <!-- /tile -->
+      <!--</div>
+      <!-- /col -->
+    <!--</div>
+    <!-- /row -->
+    </div>
+  </div>
+  <!-- /page content -->
+
+</div>

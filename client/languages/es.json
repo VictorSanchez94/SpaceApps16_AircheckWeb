@@ -1,0 +1,21 @@
+{
+  "Common": {
+    "CREATE_BTN": "Crear",
+    "EDIT_BTN": "Editar",
+    "CANCEL_BTN": "Cancelar",
+    "REFRESH": "Actualizar",
+    "FULL_SCREEN": "Pantalla completa",
+    "LIGHTBOX": "Lightbox"
+  },
+
+  "Menu": {
+    "MAP": "Mapa"
+  },
+
+  "Map": {
+    "HEADER": "Mapa",
+    "CITY_PLACEHOLDER": "Buscar ciudad..."
+  }
+
+}
+

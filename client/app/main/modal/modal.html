@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h3 class="modal-title custom-font" ng-if="modal.title" ng-bind="modal.title"></h3>
+</div>
+
+<div class="modal-body">
+  <p ng-if="modal.text" ng-bind="modal.text"></p>
+  <div ng-if="modal.html" ng-bind-html="modal.html"></div>
+</div>
+
+<div class="modal-footer">
+  <button ng-repeat="button in modal.buttons"
+          ng-class="button.classes"
+          ng-click="button.click($event)"
+          ng-bind-html="button.text"
+          class="btn">
+  </button>
+</div>

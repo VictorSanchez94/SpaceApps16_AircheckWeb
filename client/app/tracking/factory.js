@@ -31,21 +31,10 @@
         $d.resolve(promiseRes);
       });
       return $d.promise;
-
-
-      /*$http.get(commonUrl + 'close_users?latitude=' + lat + '&longitude=' + lng + '&radius=' + radius)
-        .then(function (data) {
-          console.log("USERS FACTORY", data.data);
-          return data.data;
-        })
-        .catch(function (err) {
-          console.log('getAllUsers ERROR(' + err.code + '): ' + err.message);
-        });*/
     };
 
     function getPosition() {
       var deferred = $q.defer();
-
       if (!$window.navigator) {
         $rootScope.$apply(function() {
           deferred.reject(new Error("Geolocation is not supported"));

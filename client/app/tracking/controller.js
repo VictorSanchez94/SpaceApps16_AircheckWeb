@@ -42,7 +42,7 @@
         }
         trackingFactory.getDangerZones(position.coords.latitude, position.coords.longitude)
         .then(function(data){
-          console.log("DATA", data);
+          //console.log("DATA", data);
           data.forEach(function(d){
             vm.dangerZones.push(d.data);
           });
@@ -113,7 +113,7 @@
             vm.updateCenter(v[0].data.results[0].geometry.location.lat, v[0].data.results[0].geometry.location.lng, 10);
             trackingFactory.getDangerZones(vm.center.lat, vm.center.lng)
               .then(function(data){
-                console.log("DATA", data);
+                //console.log("DATA", data);
                 data.forEach(function(d){
                   vm.dangerZones.push(d.data);
                 });
@@ -172,7 +172,7 @@
     };
 
     function _parseMarkers(data) {
-      console.log("USERS", data[0]);
+      //console.log("USERS", data[0]);
       data.forEach(function (d) {
         var popUpText = _makePopupMarkerText(d);
         vm.markers.push({

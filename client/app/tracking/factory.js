@@ -4,57 +4,100 @@
   angular.module('aircheck.map')
     .factory('trackingFactory', trackingFactory);
 
-  trackingFactory.$inject = ['PrivateRestangular', 'authFactory', '$http'];
+  trackingFactory.$inject = ['PrivateRestangular', 'authFactory', '$http', '$q', '$window', '$rootScope'];
 
-  function trackingFactory(PrivateRestangular, authFactory, $http) {
+  function trackingFactory(PrivateRestangular, authFactory, $http, $q, $window, $rootScope) {
 
-    //FAKE DATA. REMOVE AFTER SERVER CALLS WORKING
-    var markers = [
-      {id: 2, lat: 41.655297, lng:-0.8805937},
-      {id: 3, lat: 41.655299, lng:-0.8798},
-      {id: 4, lat: 41.655291, lng:-0.88},
-      {id: 7, lat: 42, lng:-0.8806},
-      {id: 9, lat: 45, lng:-0.8806},
-      {id: 5, lat: 41.655297, lng:-0.8805937},
-      {id: 8, lat: 41.655290, lng:-0.8805932},
-      {id: 12, lat: 41.655298, lng:-0.8805941},
-      {id: 1, lat: 41.655288, lng:-0.8805948}
-    ];
+    var commonUrl = 'http://40.68.44.128:8080/';
 
     var factory = {
-      getAll: getAll,
-      findById: findById,
-      test: test
+      getAllUsers: getAllUsers,
+      getPosition: getPosition,
+      getDangerZones: getDangerZones,
+      searchCity: searchCity
     };
 
-    function getAll() {
-      return markers;
+    function getAllUsers (lat, lng, radius) {
+      var $d = $q.defer();
+      var promise = [];
+
+      var options = {
+        method: 'GET',
+        url: commonUrl + 'close_users?latitude=' + lat + '&longitude=' + lng + '&radius=' + radius
+      };
+      promise.push($http(options));
+
+      $q.all(promise).then(function (promiseRes) {
+        $d.resolve(promiseRes);
+      });
+      return $d.promise;
+
+
+      /*$http.get(commonUrl + 'close_users?latitude=' + lat + '&longitude=' + lng + '&radius=' + radius)
+        .then(function (data) {
+          console.log("USERS FACTORY", data.data);
+          return data.data;
+        })
+        .catch(function (err) {
+          console.log('getAllUsers ERROR(' + err.code + '): ' + err.message);
+        });*/
     };
 
-    function findById (id) {
-      var aux = [];
-      for ( var i = 0; i < markers.length; i++ ) {
-        if(markers[i].id == id) {
-          aux.push(markers[i]);
+    function getPosition() {
+      var deferred = $q.defer();
+
+      if (!$window.navigator) {
+        $rootScope.$apply(function() {
+          deferred.reject(new Error("Geolocation is not supported"));
+        });
+      } else {
+        $window.navigator.geolocation.getCurrentPosition(function (position) {
+          $rootScope.$apply(function() {
+            deferred.resolve(position);
+          });
+        }, function (error) {
+          $rootScope.$apply(function() {
+            deferred.reject(error);
+          });
+        });
+      }
+      return deferred.promise;
+    };
+
+    function getDangerZones (latitude, longitude) {
+      var $d = $q.defer();
+      var promises = [];
+      for(var i=-2; i<3; i+=1) {
+        for(var j=-2; j<3; j+=1) {
+          var lat = latitude + i;
+          var lng = longitude + j;
+          var options = {
+            method: 'GET',
+            url: commonUrl + 'risk_value?latitude=' + lat + '&longitude=' + lng
+          };
+          promises.push($http(options));
         }
       }
-      return aux;
+      $q.all(promises).then(function (promisesRes) {
+        $d.resolve(promisesRes);
+      });
+      return $d.promise;
     };
 
-    /*function test() {
-      $http({
+    function searchCity (name) {
+      var $d = $q.defer();
+      var promise = [];
+      var options = {
         method: 'GET',
-        url: 'http://40.68.44.128:8080/test',
-        //params: 'limit=10, sort_by=created:desc',
-        headers: 'Access-Control-Allow-Origin: *'
-      })
-      .then(function(a){
-        console.log("AAAAA", a);
-          return a;
-      })
-      .catch(function(err) {
-        console.log("ERR", err);
-      });*/
+        url: 'http://maps.google.com/maps/api/geocode/json?address=' + name + '&sensor=false'
+      };
+      promise.push($http(options));
+
+      $q.all(promise).then(function (promiseRes) {
+        $d.resolve(promiseRes);
+      });
+      return $d.promise;
+    };
 
     return factory;
 

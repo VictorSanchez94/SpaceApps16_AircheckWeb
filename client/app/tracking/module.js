@@ -23,17 +23,8 @@
     .state('app.map', {
       url: '/map',
       controller: 'TrackingCtrl as trackingVM',
-      templateUrl: 'app/tracking/tracking.html',
-      resolve: {
-        markers: getMarkers
-      }
+      templateUrl: 'app/tracking/tracking.html'
     })
-
-    getMarkers.$inject = ['trackingFactory'];
-
-    function getMarkers(trackingFactory) {
-      return trackingFactory.getAll();
-    };
 
   }
 })();
